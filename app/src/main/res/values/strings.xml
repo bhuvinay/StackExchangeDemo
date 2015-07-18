@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">StackExchangeDemo</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search_query_empty">Search String is Empty..</string>
+</resources>
