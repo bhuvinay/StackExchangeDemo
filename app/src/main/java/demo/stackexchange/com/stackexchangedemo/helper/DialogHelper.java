@@ -24,7 +24,7 @@ public class DialogHelper {
         dialog.setMessage("Loading Data Please Wait...");
 
 		/*
-		 * else if(mflag==Const.IS_PLACE_IMAGE_ACTIVITY){
+         * else if(mflag==Const.IS_PLACE_IMAGE_ACTIVITY){
 		 * dialog.setMessage("Image Loading Please wait"); }
 		 */
         dialog.show();

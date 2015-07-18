@@ -10,5 +10,5 @@ import java.util.ArrayList;
 import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
 
 public interface JsonParserCallback {
-		void setQuesListData(ArrayList<QsBean> mData);
+    void setQuesListData(ArrayList<QsBean> mData);
 }

@@ -2,6 +2,7 @@ package demo.stackexchange.com.stackexchangedemo.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -61,8 +62,8 @@ public class WelcomeScreen extends Activity implements View.OnClickListener, OnI
                 text = text.replace(" ", "%20");
                 if (text == null || text.isEmpty())
                     Toast.makeText(this, R.string.search_query_empty, Toast.LENGTH_SHORT).show();
-                 else if(!Utility.isConnected(mContext)) {
-                    Toast.makeText(mContext,"No network connection",Toast.LENGTH_SHORT).show();
+                else if (!Utility.isConnected(mContext)) {
+                    Toast.makeText(mContext, "No network connection", Toast.LENGTH_SHORT).show();
                 } else {
                     url = Constants.URL_Search_Question_Query + text;
                     Log.d(Constants.TAG, "Url : " + url);
@@ -80,16 +81,15 @@ public class WelcomeScreen extends Activity implements View.OnClickListener, OnI
     }
 
 
-
     @Override
     public void setQuesListData(ArrayList<QsBean> mData) {
-        for(int i=0;i<mData.size();i++){
-           myData=mData;
+        for (int i = 0; i < mData.size(); i++) {
+            myData = mData;
         }
-        if(myDialog != null){
+        if (myDialog != null) {
             myDialog.dismissDialog();
         }
-        mQAdapter = new QuesListAdapter(this,mData);
+        mQAdapter = new QuesListAdapter(this, mData);
         mList.setAdapter(mQAdapter);
         mQAdapter.notifyDataSetChanged();
     }
@@ -97,8 +97,9 @@ public class WelcomeScreen extends Activity implements View.OnClickListener, OnI
     @Override
     public void onClickListItem(int position, int qId) {
 
-        String row = "Quesid: " + qId + " row no:  " + position;
-           Toast.makeText(this, row, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, AnswerScreen.class);
+        intent.putExtra("qId_ref", qId);
+        startActivity(intent);
 
     }
 

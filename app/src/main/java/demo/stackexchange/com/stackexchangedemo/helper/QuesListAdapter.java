@@ -26,7 +26,7 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
     private Activity mActivity;
     ArrayList<QsBean> mQData;
 
-    public QuesListAdapter(WelcomeScreen activity, ArrayList<QsBean> mData){
+    public QuesListAdapter(WelcomeScreen activity, ArrayList<QsBean> mData) {
         mActivity = activity;
         mQData = mData;
         inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -38,11 +38,12 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
 
     }
 
-    public static class ViewHolder{
+    public static class ViewHolder {
         public TextView mQuesTitle;
         public TextView mUser;
         public TextView mScore;
     }
+
     @Override
     public int getCount() {
         return mQData.size();
@@ -56,42 +57,41 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
     @Override
     public long getItemId(int i) {
         return i;
-}
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
-        View vi=convertView;
+        View vi = convertView;
         ViewHolder holder;
 
-        if(convertView==null){
+        if (convertView == null) {
 
             Log.d("vinay", "convertView==null");
-            vi = inflater.inflate(R.layout.question_itemlist_view,null);
+            vi = inflater.inflate(R.layout.question_itemlist_view, null);
 
             holder = new ViewHolder();
             holder.mQuesTitle = (TextView) vi.findViewById(R.id.question_text_view);
             holder.mUser = (TextView) vi.findViewById(R.id.question_owner_view);
-            holder.mScore= (TextView) vi.findViewById(R.id.question_score_view);
+            holder.mScore = (TextView) vi.findViewById(R.id.question_score_view);
             vi.setTag(holder);
-        }
-        else{
-            holder=(ViewHolder) vi.getTag();
+        } else {
+            holder = (ViewHolder) vi.getTag();
         }
 
         holder.mQuesTitle.setText(mQData.get(position).getTitle());
         holder.mUser.setText(mQData.get(position).getOwner());
         holder.mScore.setText(String.valueOf(mQData.get(position).getScore()));
 
-                vi.setOnClickListener(new OnItemClickListener(position));
+        vi.setOnClickListener(new OnItemClickListener(position));
         return vi;
 
     }
 
-    private class OnItemClickListener  implements View.OnClickListener {
+    private class OnItemClickListener implements View.OnClickListener {
         private int mPosition;
 
-        OnItemClickListener(int position){
+        OnItemClickListener(int position) {
 
             mPosition = position;
 

@@ -27,8 +27,7 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsB
     private String TAG = "DownloadJSONString";
 
 
-
-    public DownloadJsonAsyncTask(Context context ){
+    public DownloadJsonAsyncTask(Context context) {
         mContext = context;
         //mUrl = URL;
         mListener = (JsonParserCallback) context;
@@ -38,8 +37,8 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsB
     protected void onPreExecute() {
         super.onPreExecute();
         myDialog = new DialogHelper(mContext, 1);
-        if(myDialog!=null)
-        myDialog.showDialog();
+        if (myDialog != null)
+            myDialog.showDialog();
 
     }
 
@@ -49,24 +48,24 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsB
         ArrayList<QsBean> items = new ArrayList<>();
 
         //First read the Json string , convert it into bean items..
-            String response = Utility.GET(params[0]);
-            Log.d(Constants.TAG, response);
-            JsonOnlineParser jsonOnlineParser = new JsonOnlineParser(response);
-            items = jsonOnlineParser.getQuestionBeanList();
+        String response = Utility.GET(params[0]);
+        Log.d(Constants.TAG, response);
+        JsonOnlineParser jsonOnlineParser = new JsonOnlineParser(response);
+        items = jsonOnlineParser.getQuestionBeanList();
 
-            return items;
+        return items;
     }
 
     @Override
     protected void onPostExecute(ArrayList<QsBean> items) {
-        if(myDialog!=null)
-        myDialog.dismissDialog();
+        if (myDialog != null)
+            myDialog.dismissDialog();
         if (items.size() > 0) {
-            if(mListener!=null)
-            mListener.setQuesListData(items);
+            if (mListener != null)
+                mListener.setQuesListData(items);
 
         } else {
-          Toast.makeText(mContext,"Data is null",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Data is null", Toast.LENGTH_SHORT).show();
         }
     }
 }
