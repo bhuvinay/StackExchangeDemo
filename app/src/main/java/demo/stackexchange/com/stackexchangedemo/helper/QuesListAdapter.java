@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -91,12 +92,16 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
         private int mPosition;
 
         OnItemClickListener(int position){
+
             mPosition = position;
+
         }
 
         @Override
         public void onClick(View view) {
-            //
+            WelcomeScreen ws = (WelcomeScreen) mActivity;
+            int id = mQData.get(mPosition).getId();
+            ws.onClickListItem(mPosition, id);
         }
     }
 }

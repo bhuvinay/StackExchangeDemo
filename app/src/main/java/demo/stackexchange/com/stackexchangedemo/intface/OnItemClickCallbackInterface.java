@@ -5,5 +5,5 @@ package demo.stackexchange.com.stackexchangedemo.intface;
  */
 
 public interface OnItemClickCallbackInterface  {
-	void onClickListItem(int position);
+	void onClickListItem(int position, int id);
 }

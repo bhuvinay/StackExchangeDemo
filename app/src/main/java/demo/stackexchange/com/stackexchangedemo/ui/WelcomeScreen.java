@@ -95,7 +95,10 @@ public class WelcomeScreen extends Activity implements View.OnClickListener, OnI
     }
 
     @Override
-    public void onClickListItem(int position) {
+    public void onClickListItem(int position, int qId) {
+
+        String row = "Quesid: " + qId + " row no:  " + position;
+           Toast.makeText(this, row, Toast.LENGTH_SHORT).show();
 
     }
 
