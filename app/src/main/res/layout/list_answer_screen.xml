@@ -8,11 +8,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="demo.stackexchange.com.stackexchangedemo.ui.AnswerScreen">
-
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/Ques"
+       android:textSize="20dp"
+       android:textStyle="bold|italic"
+       android:text = "Ques Title"/>
     <ListView
         android:id="@+id/AnswerList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
     </ListView>
 

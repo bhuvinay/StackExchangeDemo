@@ -101,7 +101,8 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
         public void onClick(View view) {
             WelcomeScreen ws = (WelcomeScreen) mActivity;
             int id = mQData.get(mPosition).getId();
-            ws.onClickListItem(mPosition, id);
+            String qtitle = mQData.get(mPosition).getTitle();
+            ws.onClickListItem(mPosition, id, qtitle);
         }
     }
 }

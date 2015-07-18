@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import demo.stackexchange.com.stackexchangedemo.helper.QuesListAdapter;
 import demo.stackexchange.com.stackexchangedemo.intface.JsonParserCallback;
 import demo.stackexchange.com.stackexchangedemo.intface.OnItemClickCallbackInterface;
+import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
 import demo.stackexchange.com.stackexchangedemo.helper.DialogHelper;
@@ -49,6 +50,11 @@ public class WelcomeScreen extends Activity implements View.OnClickListener, OnI
     protected void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    public void setAnsListData(ArrayList<AnsBean> mData) {
+        //do nothing
     }
 
     @Override
@@ -95,10 +101,11 @@ public class WelcomeScreen extends Activity implements View.OnClickListener, OnI
     }
 
     @Override
-    public void onClickListItem(int position, int qId) {
+    public void onClickListItem(int position, int qId, String qTitle) {
 
         Intent intent = new Intent(this, AnswerScreen.class);
         intent.putExtra("qId_ref", qId);
+        intent.putExtra("qTitle_ref", qTitle);
         startActivity(intent);
 
     }

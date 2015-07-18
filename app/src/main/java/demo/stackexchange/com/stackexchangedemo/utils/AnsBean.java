@@ -9,19 +9,22 @@ public class AnsBean {
     String title;
     int votes;
     String owner;
+    int qId;
 
     public AnsBean() {
         id = -1;
         title = "";
         votes = 0;
         owner = "";
+        qId = -1;
     }
 
-    public AnsBean(int id, String title, int score, String owner) {
+    public AnsBean(int id, String title, int score, String owner, int qId) {
         this.id = id;
         this.title = title;
         this.votes = score;
         this.owner = owner;
+        this.qId = qId;
     }
 
     //Getter methods ..
@@ -40,10 +43,17 @@ public class AnsBean {
     public String getOwner() {
         return owner;
     }
+    public int getQuestionId() {
+        return qId;
+    }
+
 
     //Setter methods ..
     public void setId(int id) {
         this.id = id;
+    }
+    public void setQuestion_id(int qId) {
+        this.qId = qId;
     }
 
     public void setTitle(String title) {

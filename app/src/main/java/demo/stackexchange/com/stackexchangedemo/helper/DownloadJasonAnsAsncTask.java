@@ -1,9 +1,5 @@
 package demo.stackexchange.com.stackexchangedemo.helper;
 
-/**
- * Created by vinay.pratap on 17-07-2015.
- */
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -12,24 +8,25 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import demo.stackexchange.com.stackexchangedemo.intface.JsonParserCallback;
+import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
 import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Utility;
 
-public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsBean>> {
-
+/**
+ * Created by Vinay on 18-07-2015.
+ */
+public class DownloadJasonAnsAsncTask extends AsyncTask<String, Void, ArrayList<AnsBean>> {
     private Context mContext;
     //QuestionListAdapter adapter;
     private String mUrl = null;
     private String mResult = null;
     DialogHelper myDialog;
     private JsonParserCallback mListener = null;
-    private String TAG = "DownloadJSONString";
 
 
-    public DownloadJsonAsyncTask(Context context) {
+    public DownloadJasonAnsAsncTask(Context context) {
         mContext = context;
-
         mListener = (JsonParserCallback) context;
     }
 
@@ -43,26 +40,26 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsB
     }
 
     @Override
-    protected ArrayList<QsBean> doInBackground(String... params) {
+    protected ArrayList<AnsBean> doInBackground(String... params) {
 
-        ArrayList<QsBean> items = new ArrayList<>();
+        ArrayList<AnsBean> amsItems = new ArrayList<>();
 
         //First read the Json string , convert it into bean items..
         String response = Utility.GET(params[0]);
-        Log.d(Constants.TAG, "response" + response);
+        Log.d(Constants.TAG, "response ans: " + response);
         JsonOnlineParser jsonOnlineParser = new JsonOnlineParser(response);
-        items = jsonOnlineParser.getQuestionBeanList();
+        amsItems = jsonOnlineParser.getAnswerBeanList();
 
-        return items;
+        return amsItems;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<QsBean> items) {
+    protected void onPostExecute(ArrayList<AnsBean> items) {
         if (myDialog != null)
             myDialog.dismissDialog();
         if (items.size() > 0) {
             if (mListener != null)
-                mListener.setQuesListData(items);
+                mListener.setAnsListData(items);
         } else {
             Toast.makeText(mContext, "Data is null", Toast.LENGTH_SHORT).show();
         }

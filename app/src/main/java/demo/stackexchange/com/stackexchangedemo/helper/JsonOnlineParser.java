@@ -12,6 +12,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
+import demo.stackexchange.com.stackexchangedemo.utils.AnswerQsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
 import demo.stackexchange.com.stackexchangedemo.utils.QuestionQsBean;
@@ -19,11 +21,13 @@ import demo.stackexchange.com.stackexchangedemo.utils.QuestionQsBean;
 public class JsonOnlineParser {
 
     ArrayList<QsBean> items;
+    ArrayList<AnsBean> itemsAns;
     String jsonResponse;
 
 
     JsonOnlineParser(String jsonResponse) {
         items = new ArrayList<>();
+        itemsAns = new ArrayList<>();
         this.jsonResponse = jsonResponse;
     }
 
@@ -56,5 +60,38 @@ public class JsonOnlineParser {
 
         Log.d(Constants.TAG, "items.size : " + items.size());
         return items;
+    }
+
+
+    public ArrayList<AnsBean> getAnswerBeanList() {
+
+        try {
+            JSONObject obj = new JSONObject(jsonResponse);
+
+            //Read the array of items ...
+            JSONArray item_array = obj.getJSONArray(Constants.A_ITEM);
+            for (int i = 0; i < item_array.length(); i++) {
+
+                JSONObject jsonObject = item_array.getJSONObject(i);
+                //Read Owner info from the owner object ..
+                JSONObject owner_info = jsonObject.getJSONObject(Constants.A_OWNER);
+                String display_name = owner_info.getString(Constants.A_OWNER_DISPLAY_NAME);
+
+                String answer_body = jsonObject.getString(Constants.A_BODY);
+                int answer_votes = jsonObject.getInt(Constants.A_score);
+                int answer_id = jsonObject.getInt(Constants.A_Id);
+                int ques_id = jsonObject.getInt(Constants.Q_Id);
+
+                //Create an object and add to the list ..
+                AnswerQsBean qb = new AnswerQsBean(answer_id, answer_body, answer_votes, display_name, ques_id);
+                itemsAns.add(qb);
+
+            }
+        } catch (JSONException e) {
+            Log.d(Constants.TAG, e.toString());
+        }
+
+        Log.d(Constants.TAG, "items.size : " + items.size());
+        return itemsAns;
     }
 }
