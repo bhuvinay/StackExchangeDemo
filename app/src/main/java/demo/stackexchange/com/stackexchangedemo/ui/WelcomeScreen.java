@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +55,13 @@ public class WelcomeScreen extends Activity implements View.OnClickListener, OnI
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_welcome_screen, menu);
+        return true;
+    }
+
+    @Override
     public void setAnsListData(ArrayList<AnsBean> mData) {
         //do nothing
     }
@@ -83,6 +92,9 @@ public class WelcomeScreen extends Activity implements View.OnClickListener, OnI
     @Override
     protected void onPause() {
         super.onPause();
+        if (myDialog != null) {
+            myDialog.dismissDialog();
+        }
 
     }
 

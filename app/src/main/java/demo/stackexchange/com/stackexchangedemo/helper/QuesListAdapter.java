@@ -6,10 +6,12 @@ package demo.stackexchange.com.stackexchangedemo.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
     LayoutInflater inflater;
     private Activity mActivity;
     ArrayList<QsBean> mQData;
+    private String qTitle;
 
     public QuesListAdapter(WelcomeScreen activity, ArrayList<QsBean> mData) {
         mActivity = activity;
@@ -79,8 +82,11 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
             holder = (ViewHolder) vi.getTag();
         }
 
-        holder.mQuesTitle.setText(mQData.get(position).getTitle());
-        holder.mUser.setText(mQData.get(position).getOwner());
+        //Converting Html text code text to plain text
+        qTitle = Html.fromHtml( mQData.get(position).getTitle()).toString();
+
+        holder.mQuesTitle.setText(qTitle);
+        holder.mUser.setText(Html.fromHtml(mQData.get(position).getOwner()).toString());
         holder.mScore.setText(String.valueOf(mQData.get(position).getScore()));
 
         vi.setOnClickListener(new OnItemClickListener(position));
@@ -101,8 +107,7 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
         public void onClick(View view) {
             WelcomeScreen ws = (WelcomeScreen) mActivity;
             int id = mQData.get(mPosition).getId();
-            String qtitle = mQData.get(mPosition).getTitle();
-            ws.onClickListItem(mPosition, id, qtitle);
+            ws.onClickListItem(mPosition, id, qTitle);
         }
     }
 }

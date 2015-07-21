@@ -35,7 +35,7 @@ public class JsonOnlineParser {
 
         try {
             JSONObject obj = new JSONObject(jsonResponse);
-
+          //  DataBaseHelper dataBaseHelper = new DataBaseHelper(this,"querydb.db", null, 1);
             //Read the array of items ...
             JSONArray item_array = obj.getJSONArray(Constants.Q_ITEM);
             for (int i = 0; i < item_array.length(); i++) {
@@ -51,6 +51,7 @@ public class JsonOnlineParser {
 
                 //Create an object and add to the list ..
                 QuestionQsBean qb = new QuestionQsBean(question_id, question_title, question_score, display_name);
+              //  dataBaseHelper.insertQuesData(qb);
                 items.add(qb);
 
             }

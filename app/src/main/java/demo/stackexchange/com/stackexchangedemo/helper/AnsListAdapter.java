@@ -39,6 +39,7 @@ public class AnsListAdapter extends BaseAdapter {
         public TextView mUser;
         public TextView mVote;
     }
+
     @Override
     public int getCount() {
         return mQData.size();
@@ -73,7 +74,7 @@ public class AnsListAdapter extends BaseAdapter {
             holder = (ViewHolder) vi.getTag();
         }
 
-        holder.mAnsBody.loadDataWithBaseURL("", mQData.get(position).getTitle().trim(),"text/html", "UTF-8", "");
+        holder.mAnsBody.loadDataWithBaseURL("", mQData.get(position).getTitle().trim(), "text/html", "UTF-8", "");
         holder.mUser.setText(mQData.get(position).getOwner());
         holder.mVote.setText(String.valueOf(mQData.get(position).getScore()));
 

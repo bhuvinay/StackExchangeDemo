@@ -1,5 +1,8 @@
 package demo.stackexchange.com.stackexchangedemo.helper;
 
+/**
+ * Created by vinay.pratap on 18-07-2015.
+ */
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -13,9 +16,6 @@ import demo.stackexchange.com.stackexchangedemo.utils.Constants;
 import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Utility;
 
-/**
- * Created by Vinay on 18-07-2015.
- */
 public class DownloadJasonAnsAsncTask extends AsyncTask<String, Void, ArrayList<AnsBean>> {
     private Context mContext;
     //QuestionListAdapter adapter;
