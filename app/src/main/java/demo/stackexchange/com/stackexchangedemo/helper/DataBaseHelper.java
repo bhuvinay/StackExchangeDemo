@@ -21,10 +21,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "querydb.db";
     // Database Version
     static final int DATABASE_VERSION = 1;
+
+    static DataBaseHelper mInstance;
     // Table Names
-    private static final String TABLE_ques = "ques";
-    private static final String TABLE_ans = "ans";
-    private static final String TABLE_query = "query";
+    public static final String TABLE_ques = "ques";
+    public static final String TABLE_ans = "ans";
+    public static final String TABLE_query = "query";
     // SQL Statement to create a new table.
     static final String DATABASE_CREATE_ques = "create table " + TABLE_ques +
             "( " +"Q_ID"+" integer primary key," + "Q_TITLE  text, SCORE integer, Q_OWNER text); ";
@@ -38,6 +40,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public static DataBaseHelper getInstance(Context c) {
+        if (mInstance == null) {
+            mInstance = new DataBaseHelper(c, DATABASE_NAME, null, DATABASE_VERSION);
+
+        }
+        return mInstance;
+    }
 
     // Called when no database exists in disk and the helper class needs
     // to create a new one.
@@ -68,39 +77,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         // Create a new one.
         onCreate(_db);
     }
-
-    public void insertQuesData(QuestionQsBean mQdata) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put("A_ID", mQdata.getId());
-        values.put("A_OWNER", mQdata.getOwner());
-        values.put("A_BODY", mQdata.getTitle());
-        values.put("SCORE", mQdata.getScore());
-
-        // insert row
-        db.insert(TABLE_ques, null, values);
-
-
-
-    }
-
-    public void insertAnsData(AnswerQsBean mAnsdata) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put("Q_ID", mAnsdata.getId());
-        values.put("Q_OWNER", mAnsdata.getOwner());
-        values.put("Q_TITLE", mAnsdata.getTitle());
-        values.put("VOTES", mAnsdata.getScore());
-
-        // insert row
-        db.insert(TABLE_ques, null, values);
-
-
-
-    }
-
 
 }
 

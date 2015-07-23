@@ -3,7 +3,9 @@ package demo.stackexchange.com.stackexchangedemo.helper;
 /**
  * Created by vinay.pratap on 18-07-2015.
  */
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -23,10 +25,12 @@ public class DownloadJasonAnsAsncTask extends AsyncTask<String, Void, ArrayList<
     private String mResult = null;
     DialogHelper myDialog;
     private JsonParserCallback mListener = null;
+    DataBaseHelper dbHelp;
 
 
     public DownloadJasonAnsAsncTask(Context context) {
         mContext = context;
+        dbHelp = DataBaseHelper.getInstance(mContext);
         mListener = (JsonParserCallback) context;
     }
 
@@ -50,6 +54,9 @@ public class DownloadJasonAnsAsncTask extends AsyncTask<String, Void, ArrayList<
         JsonOnlineParser jsonOnlineParser = new JsonOnlineParser(response);
         amsItems = jsonOnlineParser.getAnswerBeanList();
 
+        for(AnsBean aB : amsItems){
+            insertAnsData(aB);
+        }
         return amsItems;
     }
 
@@ -63,5 +70,18 @@ public class DownloadJasonAnsAsncTask extends AsyncTask<String, Void, ArrayList<
         } else {
             Toast.makeText(mContext, "Data is null", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void insertAnsData(AnsBean mAnsdata) {
+        SQLiteDatabase db = dbHelp.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("A_ID", mAnsdata.getId());
+        values.put("A_OWNER", mAnsdata.getOwner());
+        values.put("A_BODY", mAnsdata.getTitle());
+        values.put("VOTES", mAnsdata.getScore());
+
+        // insert row
+        db.insert(DataBaseHelper.TABLE_ans, null, values);
     }
 }
