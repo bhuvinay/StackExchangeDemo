@@ -3,9 +3,8 @@ package demo.stackexchange.com.stackexchangedemo.helper;
 /**
  * Created by vinay.pratap on 18-07-2015.
  */
-import android.content.ContentValues;
+
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,22 +14,19 @@ import java.util.ArrayList;
 import demo.stackexchange.com.stackexchangedemo.intface.JsonParserCallback;
 import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
-import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Utility;
 
-public class DownloadJasonAnsAsncTask extends AsyncTask<String, Void, ArrayList<AnsBean>> {
+public class DownloadJsonAnsAsyncTask extends AsyncTask<String, Void, ArrayList<AnsBean>> {
     private Context mContext;
-    //QuestionListAdapter adapter;
     private String mUrl = null;
     private String mResult = null;
     DialogHelper myDialog;
+    private boolean isConnected;
     private JsonParserCallback mListener = null;
-    DataBaseHelper dbHelp;
+    OfflineDataFetcher offLineDbData;
 
-
-    public DownloadJasonAnsAsncTask(Context context) {
+    public DownloadJsonAnsAsyncTask(Context context) {
         mContext = context;
-        dbHelp = DataBaseHelper.getInstance(mContext);
         mListener = (JsonParserCallback) context;
     }
 
@@ -40,24 +36,32 @@ public class DownloadJasonAnsAsncTask extends AsyncTask<String, Void, ArrayList<
         myDialog = new DialogHelper(mContext, 1);
         if (myDialog != null)
             myDialog.showDialog();
+        if (!Utility.isConnected(mContext)) {
+            isConnected = false;
+            Toast.makeText(mContext, "No network connection, Searching offline", Toast.LENGTH_SHORT).show();
+        } else {
+            isConnected = true;
+        }
 
     }
 
     @Override
     protected ArrayList<AnsBean> doInBackground(String... params) {
 
-        ArrayList<AnsBean> amsItems = new ArrayList<>();
-
+        ArrayList<AnsBean> ansItems = new ArrayList<>();
+        offLineDbData = new OfflineDataFetcher(mContext);
         //First read the Json string , convert it into bean items..
-        String response = Utility.GET(params[0]);
-        Log.d(Constants.TAG, "response ans: " + response);
-        JsonOnlineParser jsonOnlineParser = new JsonOnlineParser(response);
-        amsItems = jsonOnlineParser.getAnswerBeanList();
+        if (isConnected) {
+            String response = Utility.GET(params[0]);
+            Log.d(Constants.TAG, "response ans: " + response);
+            JsonOnlineParser jsonOnlineParser = new JsonOnlineParser(response);
+            ansItems = jsonOnlineParser.getAnswerBeanList();
+            offLineDbData.insertAnswerBeanItems(ansItems);
 
-        for(AnsBean aB : amsItems){
-            insertAnsData(aB);
+        }else {
+            ansItems = offLineDbData.getDBAnswerBeanList(params[1]);
         }
-        return amsItems;
+        return ansItems;
     }
 
     @Override
@@ -72,16 +76,4 @@ public class DownloadJasonAnsAsncTask extends AsyncTask<String, Void, ArrayList<
         }
     }
 
-    public void insertAnsData(AnsBean mAnsdata) {
-        SQLiteDatabase db = dbHelp.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put("A_ID", mAnsdata.getId());
-        values.put("A_OWNER", mAnsdata.getOwner());
-        values.put("A_BODY", mAnsdata.getTitle());
-        values.put("VOTES", mAnsdata.getScore());
-
-        // insert row
-        db.insert(DataBaseHelper.TABLE_ans, null, values);
-    }
 }

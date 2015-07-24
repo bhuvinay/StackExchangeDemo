@@ -43,23 +43,19 @@ public class AnsBean {
     public String getOwner() {
         return owner;
     }
-    public int getQuestionId() {
-        return qId;
-    }
+    public int getQuestionId() { return qId; }
 
 
     //Setter methods ..
     public void setId(int id) {
         this.id = id;
     }
+
     public void setQuestion_id(int qId) {
         this.qId = qId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-
-    }
+    public void setTitle(String title) { this.title = title; }
 
     public void setScore(int score) {
         this.votes = score;

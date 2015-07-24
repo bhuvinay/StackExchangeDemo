@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,8 +14,7 @@ import java.util.ArrayList;
 import demo.stackexchange.com.stackexchangedemo.R;
 import demo.stackexchange.com.stackexchangedemo.helper.AnsListAdapter;
 import demo.stackexchange.com.stackexchangedemo.helper.DialogHelper;
-import demo.stackexchange.com.stackexchangedemo.helper.DownloadJasonAnsAsncTask;
-import demo.stackexchange.com.stackexchangedemo.helper.DownloadJsonAsyncTask;
+import demo.stackexchange.com.stackexchangedemo.helper.DownloadJsonAnsAsyncTask;
 import demo.stackexchange.com.stackexchangedemo.intface.JsonParserCallback;
 import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
@@ -46,7 +44,7 @@ public class AnswerScreen extends Activity implements JsonParserCallback {
        // http://api.stackexchange.com/2.2/questions/151777/answers?order=desc&sort=activity&site=stackoverflow&filter=!9YdnSM68i
         mUrl = Constants.URL_SEARCH_Answer + mQIdRef + Constants.URL_Search_Answer_Query;
         Log.d(Constants.TAG, "Url : " + mUrl);
-        new DownloadJasonAnsAsncTask(AnswerScreen.this).execute(mUrl);
+        new DownloadJsonAnsAsyncTask(AnswerScreen.this).execute(mUrl, mQIdRef);
 
     }
 

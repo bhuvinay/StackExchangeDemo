@@ -29,7 +29,7 @@
             android:layout_weight="0.25"
             android:id="@+id/search_button"
             android:layout_height="match_parent"
-            android:text="Search" />
+            android:text="SEARCH" />
 
     </LinearLayout>
 
@@ -37,6 +37,8 @@
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:layout_height="wrap_content" >
     </ListView>
 

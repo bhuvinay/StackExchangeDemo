@@ -13,10 +13,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
-import demo.stackexchange.com.stackexchangedemo.utils.AnswerQsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
-import demo.stackexchange.com.stackexchangedemo.utils.QuestionQsBean;
 
 public class JsonOnlineParser {
 
@@ -35,7 +33,7 @@ public class JsonOnlineParser {
 
         try {
             JSONObject obj = new JSONObject(jsonResponse);
-          //  DataBaseHelper dataBaseHelper = new DataBaseHelper(this,"querydb.db", null, 1);
+
             //Read the array of items ...
             JSONArray item_array = obj.getJSONArray(Constants.Q_ITEM);
             for (int i = 0; i < item_array.length(); i++) {
@@ -50,8 +48,8 @@ public class JsonOnlineParser {
                 int question_id = jsonObject.getInt(Constants.Q_Id);
 
                 //Create an object and add to the list ..
-                QuestionQsBean qb = new QuestionQsBean(question_id, question_title, question_score, display_name);
-              //  dataBaseHelper.insertQuesData(qb);
+                QsBean qb = new QsBean(question_id, question_title, question_score, display_name);
+                //    insertQuesData(qb);
                 items.add(qb);
 
             }
@@ -84,8 +82,8 @@ public class JsonOnlineParser {
                 int ques_id = jsonObject.getInt(Constants.Q_Id);
 
                 //Create an object and add to the list ..
-                AnswerQsBean qb = new AnswerQsBean(answer_id, answer_body, answer_votes, display_name, ques_id);
-                itemsAns.add(qb);
+                AnsBean ab = new AnsBean(answer_id, answer_body, answer_votes, display_name, ques_id);
+                itemsAns.add(ab);
 
             }
         } catch (JSONException e) {

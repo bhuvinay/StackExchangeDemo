@@ -2,6 +2,7 @@ package demo.stackexchange.com.stackexchangedemo.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,7 @@ public class AnsListAdapter extends BaseAdapter {
         }
 
         holder.mAnsBody.loadDataWithBaseURL("", mQData.get(position).getTitle().trim(), "text/html", "UTF-8", "");
-        holder.mUser.setText(mQData.get(position).getOwner());
+        holder.mUser.setText(Html.fromHtml(mQData.get(position).getOwner()).toString());
         holder.mVote.setText(String.valueOf(mQData.get(position).getScore()));
 
 

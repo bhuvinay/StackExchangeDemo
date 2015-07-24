@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
+    android:background="@drawable/trans_bg"
     android:orientation="vertical">
 
     <WebView
@@ -17,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="#FF838383"
+        android:background="@drawable/blue_bg"
         android:layout_weight="1"
         android:orientation="horizontal">
 

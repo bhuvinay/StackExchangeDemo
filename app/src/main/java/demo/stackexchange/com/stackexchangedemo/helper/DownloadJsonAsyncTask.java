@@ -4,9 +4,7 @@ package demo.stackexchange.com.stackexchangedemo.helper;
  * Created by vinay.pratap on 17-07-2015.
  */
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,13 +19,11 @@ import demo.stackexchange.com.stackexchangedemo.utils.Utility;
 public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsBean>> {
 
     private Context mContext;
-    //QuestionListAdapter adapter;
-    private String mUrl = null;
-    private String mResult = null;
+    private boolean isConnected;
     DialogHelper myDialog;
     private JsonParserCallback mListener = null;
-    private String TAG = "DownloadJSONString";
     DataBaseHelper dbHelp;
+    OfflineDataFetcher offLineDbData;
 
     public DownloadJsonAsyncTask(Context context) {
         mContext = context;
@@ -41,6 +37,12 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsB
         myDialog = new DialogHelper(mContext, 1);
         if (myDialog != null)
             myDialog.showDialog();
+        if (!Utility.isConnected(mContext)) {
+            isConnected = false;
+            Toast.makeText(mContext, "No network connection, Searching offline", Toast.LENGTH_SHORT).show();
+        } else {
+            isConnected = true;
+        }
 
     }
 
@@ -48,25 +50,23 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsB
     protected ArrayList<QsBean> doInBackground(String... params) {
 
         ArrayList<QsBean> items = new ArrayList<>();
-        StringBuffer sb = new StringBuffer();;
+        StringBuffer sb = new StringBuffer();
+        offLineDbData = new OfflineDataFetcher(mContext);
         //First read the Json string , convert it into bean items..
-        String URL = params[0] + params[1];
-        Log.d(Constants.TAG,"params[0]" + params[0] + "params[1]" + params[1]);
-        String response = Utility.GET(URL);
-       // String response = Utility.GET(params[0]);
-        Log.d(Constants.TAG, "response" + response);
-        JsonOnlineParser jsonOnlineParser = new JsonOnlineParser(response);
-        items = jsonOnlineParser.getQuestionBeanList();
+        if (isConnected) {
+            //Fetch from Network
+            String URL = params[0] + params[1];   // params[0]: URL, params[1]: Search text
+            Log.d(Constants.TAG, "params[0]" + params[0] + "params[1]" + params[1]);
+            String response = Utility.GET(URL);
+            Log.d(Constants.TAG, "response" + response);
+            JsonOnlineParser jsonOnlineParser = new JsonOnlineParser(response);
+            items = jsonOnlineParser.getQuestionBeanList();
+            offLineDbData.insertQuestionBeanItems(items, params[1]);
 
-        for(QsBean qB : items){
-            insertQuesData(qB);
-            sb.append(qB.getId());
-            sb.append(";");
-            Log.d(Constants.TAG,"qB id " + qB.getId());
+        } else {
+            //look in DB for saved data for Search Text{prams[1]}
+            items = offLineDbData.getDBQuestionBeanList(params[1]);
         }
-        String qList = sb.toString();
-        Log.d(Constants.TAG,"qList " + qList);
-        insertQueryQlist(params[1], qList);
         return items;
     }
 
@@ -82,27 +82,4 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<QsB
         }
     }
 
-    public void insertQueryQlist(String sQues, String qIdList) {
-        SQLiteDatabase db = dbHelp.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put("SEARCH_STR", sQues);
-        values.put("Q_LIST", qIdList);
-
-        //insert ques text map to ques ids
-        db.insert(DataBaseHelper.TABLE_query, null, values);
-    }
-
-    public void insertQuesData(QsBean mQdata) {
-        SQLiteDatabase db = dbHelp.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put("Q_ID", mQdata.getId());
-        values.put("Q_OWNER", mQdata.getOwner());
-        values.put("Q_TITLE", mQdata.getTitle());
-        values.put("SCORE", mQdata.getScore());
-
-        // insert row
-        db.insert(DataBaseHelper.TABLE_ques, null, values);
-    }
 }

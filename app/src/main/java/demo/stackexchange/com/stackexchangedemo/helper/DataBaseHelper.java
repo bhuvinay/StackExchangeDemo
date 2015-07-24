@@ -4,17 +4,12 @@ package demo.stackexchange.com.stackexchangedemo.helper;
  * Created by vinay.pratap on 19-07-2015.
  */
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
-import demo.stackexchange.com.stackexchangedemo.utils.AnswerQsBean;
-import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
-import demo.stackexchange.com.stackexchangedemo.utils.QuestionQsBean;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     // Database Name
@@ -29,13 +24,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_query = "query";
     // SQL Statement to create a new table.
     static final String DATABASE_CREATE_ques = "create table " + TABLE_ques +
-            "( " +"Q_ID"+" integer primary key," + "Q_TITLE  text, SCORE integer, Q_OWNER text); ";
+            "( " + "Q_ID" + " integer primary key," + "Q_TITLE  text, SCORE integer, Q_OWNER text); ";
     static final String DATABASE_CREATE_ans = "create table " + TABLE_ans +
-            "( " +"A_ID"+" integer primary key,"+ "A_BODY  text, A_OWNER text,  VOTES integer, Q_ID integer); ";
+            "( " + "A_ID" + " integer primary key," + "A_BODY  text, A_OWNER text,  VOTES integer, Q_ID integer); ";
     static final String DATABASE_CREATE_query = "create table " + TABLE_query +
-            "( " +"ID"+" integer primary key autoincrement," + "SEARCH_STR  text, Q_LIST text); ";
+            "( " + "ID" + " integer primary key autoincrement," + "SEARCH_STR  text, Q_LIST text); ";
 
-    public DataBaseHelper(Context context, String name, CursorFactory factory, int version) {
+    private DataBaseHelper(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
 
     }

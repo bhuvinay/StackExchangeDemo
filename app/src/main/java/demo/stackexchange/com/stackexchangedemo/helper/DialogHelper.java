@@ -15,6 +15,8 @@ public class DialogHelper {
 
     public DialogHelper(Context context, int flag) {
         dialog = new ProgressDialog(context);
+        //Dialog was getting cancelled up
+        dialog.setCanceledOnTouchOutside(false);
         mflag = flag;
     }
 
@@ -23,10 +25,6 @@ public class DialogHelper {
 
         dialog.setMessage("Loading Data Please Wait...");
 
-		/*
-         * else if(mflag==Const.IS_PLACE_IMAGE_ACTIVITY){
-		 * dialog.setMessage("Image Loading Please wait"); }
-		 */
         dialog.show();
     }
 

@@ -7,14 +7,11 @@ package demo.stackexchange.com.stackexchangedemo.helper;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,7 +24,6 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
     LayoutInflater inflater;
     private Activity mActivity;
     ArrayList<QsBean> mQData;
-    private String qTitle;
 
     public QuesListAdapter(WelcomeScreen activity, ArrayList<QsBean> mData) {
         mActivity = activity;
@@ -69,10 +65,7 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
         ViewHolder holder;
 
         if (convertView == null) {
-
-            Log.d("vinay", "convertView==null");
             vi = inflater.inflate(R.layout.question_itemlist_view, null);
-
             holder = new ViewHolder();
             holder.mQuesTitle = (TextView) vi.findViewById(R.id.question_text_view);
             holder.mUser = (TextView) vi.findViewById(R.id.question_owner_view);
@@ -82,11 +75,11 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
             holder = (ViewHolder) vi.getTag();
         }
 
-        //Converting Html text code text to plain text
-        qTitle = Html.fromHtml( mQData.get(position).getTitle()).toString();
+        //Converting Html text code to plain text
+        String qSTitle = Html.fromHtml( mQData.get(position).getTitle()).toString();
 
-        holder.mQuesTitle.setText(qTitle);
-        holder.mUser.setText(Html.fromHtml(mQData.get(position).getOwner()).toString());
+        holder.mQuesTitle.setText(qSTitle);
+        holder.mUser.setText(Html.fromHtml( mQData.get(position).getOwner()).toString());
         holder.mScore.setText(String.valueOf(mQData.get(position).getScore()));
 
         vi.setOnClickListener(new OnItemClickListener(position));
@@ -98,15 +91,15 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
         private int mPosition;
 
         OnItemClickListener(int position) {
-
             mPosition = position;
-
         }
 
         @Override
         public void onClick(View view) {
             WelcomeScreen ws = (WelcomeScreen) mActivity;
             int id = mQData.get(mPosition).getId();
+            //Converting Ques Html text code to plain text
+            String qTitle = Html.fromHtml(mQData.get(mPosition).getTitle()).toString();
             ws.onClickListItem(mPosition, id, qTitle);
         }
     }
