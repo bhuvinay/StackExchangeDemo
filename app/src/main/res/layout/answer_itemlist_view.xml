@@ -58,7 +58,7 @@
                 android:layout_marginLeft="4dp"
                 android:gravity="center|left"
                 android:textSize="20dp"
-                android:textStyle="bold|italic"
+                android:textStyle="italic"
                 android:singleLine="true"
                 android:text="Vote" />
         </LinearLayout>

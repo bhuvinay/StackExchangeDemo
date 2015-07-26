@@ -4,10 +4,13 @@ package demo.stackexchange.com.stackexchangedemo.utils;
  * Created by vinay.pratap on 17-07-2015.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -88,5 +91,10 @@ public class Utility {
             return result;
         }
 
+    }
+
+    public static void hideKeyboard(View view,Context context) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

@@ -15,9 +15,7 @@ import java.util.ArrayList;
 
 import demo.stackexchange.com.stackexchangedemo.R;
 import demo.stackexchange.com.stackexchangedemo.ui.AnswerScreen;
-import demo.stackexchange.com.stackexchangedemo.ui.WelcomeScreen;
-import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
-import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
+import demo.stackexchange.com.stackexchangedemo.utils.Bean;
 
 /**
  * Created by Vinay on 18-07-2015.
@@ -26,9 +24,9 @@ public class AnsListAdapter extends BaseAdapter {
 
     LayoutInflater inflater;
     private Activity mActivity;
-    ArrayList<AnsBean> mQData;
+    ArrayList<Bean> mQData;
 
-    public AnsListAdapter(AnswerScreen activity, ArrayList<AnsBean> mData) {
+    public AnsListAdapter(AnswerScreen activity, ArrayList<Bean> mData) {
         mActivity = activity;
         mQData = mData;
         inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -63,7 +61,6 @@ public class AnsListAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-            Log.d("vinay", "convertView==null");
             vi = inflater.inflate(R.layout.answer_itemlist_view, null);
 
             holder = new ViewHolder();
@@ -76,6 +73,7 @@ public class AnsListAdapter extends BaseAdapter {
         }
 
         holder.mAnsBody.loadDataWithBaseURL("", mQData.get(position).getTitle().trim(), "text/html", "UTF-8", "");
+        //HTML text formatting
         holder.mUser.setText(Html.fromHtml(mQData.get(position).getOwner()).toString());
         holder.mVote.setText(String.valueOf(mQData.get(position).getScore()));
 

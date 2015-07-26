@@ -6,4 +6,6 @@
     <string name="search_query_empty">Search String is Empty..</string>
     <string name="title_activity_answer_screen">AnswerScreen</string>
     <string name="search_title">Search here...</string>
+    <string name="title_activity_search_result">StackOverflow</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>

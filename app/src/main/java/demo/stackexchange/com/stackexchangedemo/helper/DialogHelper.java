@@ -4,8 +4,12 @@ package demo.stackexchange.com.stackexchangedemo.helper;
  * Created by vinay.pratap on 18-07-2015.
  */
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+
+import demo.stackexchange.com.stackexchangedemo.R;
 
 public class DialogHelper {
 
@@ -17,6 +21,7 @@ public class DialogHelper {
         dialog = new ProgressDialog(context);
         //Dialog was getting cancelled up
         dialog.setCanceledOnTouchOutside(false);
+        mContext = context;
         mflag = flag;
     }
 
@@ -33,4 +38,5 @@ public class DialogHelper {
             dialog.dismiss();
         }
     }
+
 }

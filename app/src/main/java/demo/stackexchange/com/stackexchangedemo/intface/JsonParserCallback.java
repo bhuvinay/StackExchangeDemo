@@ -7,10 +7,8 @@ package demo.stackexchange.com.stackexchangedemo.intface;
 import java.util.ArrayList;
 
 
-import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
-import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
+import demo.stackexchange.com.stackexchangedemo.utils.Bean;
 
 public interface JsonParserCallback {
-    void setQuesListData(ArrayList<QsBean> mData);
-    void setAnsListData(ArrayList<AnsBean> mData);
+    void setListData(ArrayList<Bean> mData);
 }

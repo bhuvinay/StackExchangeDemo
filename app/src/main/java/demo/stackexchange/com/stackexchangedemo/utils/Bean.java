@@ -4,14 +4,14 @@ package demo.stackexchange.com.stackexchangedemo.utils;
  * Created by vinay.pratap on 18-07-2015.
  */
 
-public class AnsBean {
+public class Bean {
     int id;
     String title;
     int votes;
     String owner;
     int qId;
 
-    public AnsBean() {
+    public Bean() {
         id = -1;
         title = "";
         votes = 0;
@@ -19,7 +19,7 @@ public class AnsBean {
         qId = -1;
     }
 
-    public AnsBean(int id, String title, int score, String owner, int qId) {
+    public Bean(int id, String title, int score, String owner, int qId) {
         this.id = id;
         this.title = title;
         this.votes = score;

@@ -17,15 +17,16 @@ import java.util.ArrayList;
 
 import demo.stackexchange.com.stackexchangedemo.R;
 import demo.stackexchange.com.stackexchangedemo.ui.WelcomeScreen;
-import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
+import demo.stackexchange.com.stackexchangedemo.utils.Bean;
+
 
 public class QuesListAdapter extends BaseAdapter implements View.OnClickListener {
 
     LayoutInflater inflater;
     private Activity mActivity;
-    ArrayList<QsBean> mQData;
+    ArrayList<Bean> mQData;
 
-    public QuesListAdapter(WelcomeScreen activity, ArrayList<QsBean> mData) {
+    public QuesListAdapter(WelcomeScreen activity, ArrayList<Bean> mData) {
         mActivity = activity;
         mQData = mData;
         inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

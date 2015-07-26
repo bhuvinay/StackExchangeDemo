@@ -12,25 +12,29 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
-import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
+import demo.stackexchange.com.stackexchangedemo.utils.Bean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
 
 public class JsonOnlineParser {
 
-    ArrayList<QsBean> items;
-    ArrayList<AnsBean> itemsAns;
-    String jsonResponse;
+    private static JsonOnlineParser mInstance;
 
+    private JsonOnlineParser() {
 
-    JsonOnlineParser(String jsonResponse) {
-        items = new ArrayList<>();
-        itemsAns = new ArrayList<>();
-        this.jsonResponse = jsonResponse;
     }
 
-    public ArrayList<QsBean> getQuestionBeanList() {
+    public static JsonOnlineParser getInstance() {
+        if (mInstance == null) {
+            mInstance = new JsonOnlineParser();
 
+        }
+        return mInstance;
+    }
+
+
+    public ArrayList<Bean> getQuestionBeanList(String jsonResponse) {
+
+        ArrayList<Bean> items = new ArrayList<>();
         try {
             JSONObject obj = new JSONObject(jsonResponse);
 
@@ -48,8 +52,7 @@ public class JsonOnlineParser {
                 int question_id = jsonObject.getInt(Constants.Q_Id);
 
                 //Create an object and add to the list ..
-                QsBean qb = new QsBean(question_id, question_title, question_score, display_name);
-                //    insertQuesData(qb);
+                Bean qb = new Bean(question_id, question_title, question_score, display_name,0);
                 items.add(qb);
 
             }
@@ -62,8 +65,9 @@ public class JsonOnlineParser {
     }
 
 
-    public ArrayList<AnsBean> getAnswerBeanList() {
+    public ArrayList<Bean> getAnswerBeanList(String jsonResponse) {
 
+        ArrayList<Bean> itemsAns = new ArrayList<>();
         try {
             JSONObject obj = new JSONObject(jsonResponse);
 
@@ -82,15 +86,14 @@ public class JsonOnlineParser {
                 int ques_id = jsonObject.getInt(Constants.Q_Id);
 
                 //Create an object and add to the list ..
-                AnsBean ab = new AnsBean(answer_id, answer_body, answer_votes, display_name, ques_id);
+                Bean ab = new Bean(answer_id, answer_body, answer_votes, display_name, ques_id);
                 itemsAns.add(ab);
 
             }
         } catch (JSONException e) {
             Log.d(Constants.TAG, e.toString());
         }
-
-        Log.d(Constants.TAG, "items.size : " + items.size());
+        Log.d(Constants.TAG, "items.size : " + itemsAns.size());
         return itemsAns;
     }
 }

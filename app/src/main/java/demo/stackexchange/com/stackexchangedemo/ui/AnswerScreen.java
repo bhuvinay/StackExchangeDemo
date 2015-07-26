@@ -14,19 +14,18 @@ import java.util.ArrayList;
 import demo.stackexchange.com.stackexchangedemo.R;
 import demo.stackexchange.com.stackexchangedemo.helper.AnsListAdapter;
 import demo.stackexchange.com.stackexchangedemo.helper.DialogHelper;
-import demo.stackexchange.com.stackexchangedemo.helper.DownloadJsonAnsAsyncTask;
+import demo.stackexchange.com.stackexchangedemo.helper.DownloadJsonAsyncTask;
 import demo.stackexchange.com.stackexchangedemo.intface.JsonParserCallback;
-import demo.stackexchange.com.stackexchangedemo.utils.AnsBean;
+import demo.stackexchange.com.stackexchangedemo.utils.Bean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
-import demo.stackexchange.com.stackexchangedemo.utils.QsBean;
+
 
 public class AnswerScreen extends Activity implements JsonParserCallback {
-    private Context mContext;
     private String mUrl;
     DialogHelper mDialog;
     ListView mAnsList;
     TextView mQuesTitle;
-    public ArrayList<AnsBean> myData;
+    public ArrayList<Bean> myData;
     public AnsListAdapter mAnsAdapter;
     int mQIdRefInt;
     String qTitle;
@@ -44,7 +43,7 @@ public class AnswerScreen extends Activity implements JsonParserCallback {
        // http://api.stackexchange.com/2.2/questions/151777/answers?order=desc&sort=activity&site=stackoverflow&filter=!9YdnSM68i
         mUrl = Constants.URL_SEARCH_Answer + mQIdRef + Constants.URL_Search_Answer_Query;
         Log.d(Constants.TAG, "Url : " + mUrl);
-        new DownloadJsonAnsAsyncTask(AnswerScreen.this).execute(mUrl, mQIdRef);
+        new DownloadJsonAsyncTask(AnswerScreen.this,Constants.ANSWER).execute(mUrl, mQIdRef);
 
     }
 
@@ -72,12 +71,7 @@ public class AnswerScreen extends Activity implements JsonParserCallback {
     }
 
     @Override
-    public void setQuesListData(ArrayList<QsBean> mData) {
-
-    }
-
-    @Override
-    public void setAnsListData(ArrayList<AnsBean> mData) {
+    public void setListData(ArrayList<Bean> mData) {
         for (int i = 0; i < mData.size(); i++) {
             myData = mData;
         }
@@ -88,4 +82,5 @@ public class AnswerScreen extends Activity implements JsonParserCallback {
         mAnsList.setAdapter(mAnsAdapter);
         mAnsAdapter.notifyDataSetChanged();
     }
+
 }
