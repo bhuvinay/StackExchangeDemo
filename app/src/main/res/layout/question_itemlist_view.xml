@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
     android:background="@drawable/list_selected_background_light"
     android:orientation="horizontal"
     android:weightSum="1">
@@ -10,14 +9,15 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-
+        android:layout_margin="2dp"
         android:layout_weight="0.75">
 
         <TextView
             android:id="@+id/question_text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:textColor="#CC000000"
             android:text="Question Title goes here .." />
 
     </LinearLayout>
@@ -25,8 +25,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:background="#66669944"
+        android:background="@drawable/orange"
         android:layout_weight="0.25"
         android:orientation="vertical">
 

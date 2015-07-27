@@ -33,7 +33,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_query = "query";
     // SQL Statement to create a new table.
     static final String DATABASE_CREATE_ques = "create table " + TABLE_ques +
-            "( " + "Q_ID" + " integer primary key," + "Q_TITLE  text, SCORE integer, Q_OWNER text); ";
+            "( " + "Q_ID" + " integer primary key," + "Q_TITLE  text, SCORE integer, Q_OWNER text, Q_ANSWERED integer); ";
     static final String DATABASE_CREATE_ans = "create table " + TABLE_ans +
             "( " + "A_ID" + " integer primary key," + "A_BODY  text, A_OWNER text,  VOTES integer, Q_ID integer); ";
     static final String DATABASE_CREATE_query = "create table " + TABLE_query +
@@ -134,7 +134,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             for (int i = 0; i < qArray.length - 1; i++) {
 
                 Cursor item_cursor = db.query(DataBaseHelper.TABLE_ques,
-                        new String[]{"Q_OWNER", "Q_ID", "Q_TITLE", "SCORE"},
+                        new String[]{"Q_OWNER", "Q_ID", "Q_TITLE", "SCORE", "Q_ANSWERED"},
                         "Q_ID=?",
                         new String[]{qArray[i]},
                         null,
@@ -146,8 +146,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     String q_owner = item_cursor.getString(item_cursor.getColumnIndex("Q_OWNER"));
                     int q_score = item_cursor.getInt(item_cursor.getColumnIndex("SCORE"));
                     String q_title = item_cursor.getString(item_cursor.getColumnIndex("Q_TITLE"));
+                    int q_answered  =  item_cursor.getInt(item_cursor.getColumnIndex("Q_ANSWERED"));
+                    boolean is_Answered = (q_answered == 1) ? true : false;
                     Log.d(Constants.TAG, "q_id : " + q_id + " q_owner :" + q_owner + "q_score : " + q_score + "q_title : " + q_title);
-                    Bean qsBean = new Bean(q_id, q_title, q_score, q_owner,0);
+                    Bean qsBean = new Bean(q_id, q_title, q_score, q_owner,0, is_Answered);
                     items_qb.add(qsBean);
                 }
                 item_cursor.close();
@@ -188,7 +190,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String answer_body = item_cursor.getString(item_cursor.getColumnIndex("A_BODY"));
                 int ques_id = item_cursor.getInt(item_cursor.getColumnIndex("A_ID"));
                 Log.d(Constants.TAG, "answer_id : " + answer_id + " answer_owner :" + answer_owner + "answer_votes : " + answer_votes + "answer_body : " + answer_body + "ques_id : " + ques_id);
-                Bean asBean = new Bean(answer_id, answer_body, answer_votes, answer_owner, ques_id);
+                Bean asBean = new Bean(answer_id, answer_body, answer_votes, answer_owner, ques_id, false);
                 items_ab.add(asBean);
             }
             item_cursor.close();
@@ -231,6 +233,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         values.put("Q_OWNER", mQdata.getOwner());
         values.put("Q_TITLE", mQdata.getTitle());
         values.put("SCORE", mQdata.getScore());
+        values.put("Q_ANSWERED", mQdata.isAnswered());
 
         // insert row
         db.insert(DataBaseHelper.TABLE_ques, null, values);

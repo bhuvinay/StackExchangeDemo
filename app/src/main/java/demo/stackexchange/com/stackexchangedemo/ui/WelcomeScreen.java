@@ -61,7 +61,7 @@ public class WelcomeScreen extends Activity implements OnItemClickCallbackInterf
             url = Constants.URL_Search_Question_Query; //+ text;
             Log.d(Constants.TAG, "Url : " + url);
             if (!Utility.isConnected(mContext))
-                alertView("No Network Connection. The data will be populated from Database, if previously searched");
+                alertView("No Network Connection. Results will be populated from Database, if previously searched");
             else
                 new DownloadJsonAsyncTask(WelcomeScreen.this, Constants.QUESTION).execute(url, qSearchtext);
         }

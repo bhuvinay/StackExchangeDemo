@@ -10,6 +10,7 @@ public class Bean {
     int votes;
     String owner;
     int qId;
+    boolean isAnswered;
 
     public Bean() {
         id = -1;
@@ -17,14 +18,16 @@ public class Bean {
         votes = 0;
         owner = "";
         qId = -1;
+        isAnswered = false;
     }
 
-    public Bean(int id, String title, int score, String owner, int qId) {
+    public Bean(int id, String title, int score, String owner, int qId, boolean isAnswered) {
         this.id = id;
         this.title = title;
         this.votes = score;
         this.owner = owner;
         this.qId = qId;
+        this.isAnswered = isAnswered;
     }
 
     //Getter methods ..
@@ -44,6 +47,10 @@ public class Bean {
         return owner;
     }
     public int getQuestionId() { return qId; }
+
+    public int isAnswered() {
+        return (isAnswered ? 1 : 0);
+    }
 
 
     //Setter methods ..

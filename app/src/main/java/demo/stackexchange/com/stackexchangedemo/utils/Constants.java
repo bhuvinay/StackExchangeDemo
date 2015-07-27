@@ -15,7 +15,7 @@ public class Constants {
     public static final String Sort_Param_Value = "relevance";
     public static final String Sort_Ans_Param_Value = "votes";
     public static final String Order_Param_Value = "desc";
-    public static final String Page_Size_Param_Value = "20";
+    public static final String Page_Size_Param_Value = "20";  //Restrict to twenty responses only
     public static final String Order_Param_Filter = "!9YdnSM68i";
 
     //Http Query URL for Search [Questions] ..
@@ -51,6 +51,7 @@ public class Constants {
     public static final String Q_TITLE = "title";
     public static final String Q_score = "score";
     public static final String Q_Id = "question_id";
+    public static final String IS_ANSWERED = "is_answered";
 
     public static final String Q_HAS_MORE = "has_more";
     public static final String Q_MAX_QUOTA = "quota_max";

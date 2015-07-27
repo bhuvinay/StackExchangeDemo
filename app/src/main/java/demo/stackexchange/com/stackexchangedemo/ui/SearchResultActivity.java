@@ -7,6 +7,8 @@ package demo.stackexchange.com.stackexchangedemo.ui;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -47,6 +49,8 @@ public class SearchResultActivity extends ActionBarActivity implements SearchVie
         dbHelp = DataBaseHelper.getInstance(this);
         listView = (ListView) findViewById(R.id.searchitems);
         listView.setOnItemClickListener(this);
+       // ActionBar bar color set to #669944
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#DDF68A1F")));
     }
 
     @Override
@@ -57,6 +61,7 @@ public class SearchResultActivity extends ActionBarActivity implements SearchVie
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.menu_search).getActionView();
+       // searchView.setBackgroundColor(Color.parseColor("#FF669944"));
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);

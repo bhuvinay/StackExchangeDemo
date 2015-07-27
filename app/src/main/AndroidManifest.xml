@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="demo.stackexchange.com.stackexchangedemo" >
+    package="demo.stackexchange.com.stackexchangedemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -8,13 +8,13 @@
     <application
         android:name=".helper.AppController"
         android:allowBackup="true"
-        android:configChanges="orientation|screenSize|keyboardHidden"
         android:icon="@drawable/stackoverflow"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.WelcomeScreen"
-            android:label="@string/app_name" >
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -25,24 +25,23 @@
         </activity>
         <activity
             android:name=".ui.AnswerScreen"
-            android:label="@string/title_activity_answer_screen" >
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/title_activity_answer_screen">
+
         </activity>
         <activity
             android:name=".ui.SearchResultActivity"
-            android:label="@string/title_activity_search_result" >
+            android:label="@string/title_activity_search_result">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".ui.WelcomeScreen" />
         </activity>
-        <activity
-            android:name=".ui.SplashActivity"
-            >
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
 
         </activity>
     </application>

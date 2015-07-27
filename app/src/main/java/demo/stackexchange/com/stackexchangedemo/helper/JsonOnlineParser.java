@@ -50,9 +50,10 @@ public class JsonOnlineParser {
                 String question_title = jsonObject.getString(Constants.Q_TITLE);
                 int question_score = jsonObject.getInt(Constants.Q_score);
                 int question_id = jsonObject.getInt(Constants.Q_Id);
-
+                boolean is_answered = jsonObject.getBoolean(Constants.IS_ANSWERED);
                 //Create an object and add to the list ..
-                Bean qb = new Bean(question_id, question_title, question_score, display_name,0);
+                Bean qb = new Bean(question_id, question_title, question_score, display_name,0,is_answered);
+                //    insertQuesData(qb);
                 items.add(qb);
 
             }
@@ -86,7 +87,7 @@ public class JsonOnlineParser {
                 int ques_id = jsonObject.getInt(Constants.Q_Id);
 
                 //Create an object and add to the list ..
-                Bean ab = new Bean(answer_id, answer_body, answer_votes, display_name, ques_id);
+                Bean ab = new Bean(answer_id, answer_body, answer_votes, display_name, ques_id , false);
                 itemsAns.add(ab);
 
             }

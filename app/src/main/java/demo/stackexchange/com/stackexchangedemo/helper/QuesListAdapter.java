@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -84,7 +85,15 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
         holder.mScore.setText(String.valueOf(mQData.get(position).getScore()));
 
         vi.setOnClickListener(new OnItemClickListener(position));
-        return vi;
+
+        if(mQData.get(position).isAnswered() == 1) {
+
+            vi.setBackgroundResource(R.drawable.list_selected_background_light);
+        } else {
+            //vi.setOnClickListener(null);
+            vi.setBackgroundResource(R.drawable.list_selected_background_no_answer);
+        }
+            return vi;
 
     }
 
@@ -101,7 +110,12 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
             int id = mQData.get(mPosition).getId();
             //Converting Ques Html text code to plain text
             String qTitle = Html.fromHtml(mQData.get(mPosition).getTitle()).toString();
-            ws.onClickListItem(mPosition, id, qTitle);
+            if(mQData.get(mPosition).isAnswered() == 1) {
+                ws.onClickListItem(mPosition, id, qTitle);
+            } else {
+               Toast.makeText(mActivity, "No Answer present", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 }

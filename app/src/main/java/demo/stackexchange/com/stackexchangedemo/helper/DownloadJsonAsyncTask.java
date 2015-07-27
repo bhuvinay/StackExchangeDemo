@@ -45,7 +45,7 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Bea
             myDialog.showDialog();
         if (!Utility.isConnected(mContext)) {
             isConnected = false;
-            Toast.makeText(mContext, "No network connection, Searching offline", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mContext, "No network connection, Searching offline", Toast.LENGTH_SHORT).show();
         } else {
             isConnected = true;
         }
@@ -104,7 +104,7 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Bea
             if (mContext instanceof AnswerScreen)
                 ((AnswerScreen) mContext).finish();
 
-            Toast.makeText(mContext, "Data is null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "No result to show, check network", Toast.LENGTH_SHORT).show();
         }
     }
 

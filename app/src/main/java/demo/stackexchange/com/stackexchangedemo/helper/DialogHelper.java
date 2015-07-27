@@ -21,6 +21,7 @@ public class DialogHelper {
         dialog = new ProgressDialog(context);
         //Dialog was getting cancelled up
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         mContext = context;
         mflag = flag;
     }
