@@ -7,7 +7,7 @@ package demo.stackexchange.com.stackexchangedemo.utils;
 public class Constants {
 
     public static final String TAG = "StackOverflow";
-   //used for diiferentiating screen
+   //used for diferentiating screen
     public static final int ANSWER = 1;
     public static final int QUESTION = 2;
 
@@ -16,7 +16,7 @@ public class Constants {
     public static final String Sort_Ans_Param_Value = "votes";
     public static final String Order_Param_Value = "desc";
     public static final String Page_Size_Param_Value = "20";  //Restrict to twenty responses only
-    public static final String Order_Param_Filter = "!9YdnSM68i";
+    public static final String Order_Param_Filter = "!9YdnSM68i"; //filters
 
     //Http Query URL for Search [Questions] ..
     public static final String URL_SEARCH_Question = "https://api.stackexchange.com/2.2/search/advanced";
