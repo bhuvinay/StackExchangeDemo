@@ -14,8 +14,8 @@ import demo.stackexchange.com.stackexchangedemo.R;
 public class DialogHelper {
 
     private ProgressDialog dialog;
-    Context mContext;
-    int mflag;
+    private Context mContext;
+    private int mflag;
 
     public DialogHelper(Context context, int flag) {
         dialog = new ProgressDialog(context);

@@ -6,19 +6,27 @@
     android:background="@drawable/trans_bg"
     android:orientation="vertical">
 
-    <WebView
+    <TextView
         android:id="@+id/answer_web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:focusable="false"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:text="Answerbody goes here .." />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="right"
+        android:textColor="#FF0000FF"
+        android:text="@string/click_for_more" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/orange"
-        android:layout_weight="1"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -33,7 +41,7 @@
                 android:layout_weight="0.7"
                 android:gravity="center|left"
                 android:layout_marginLeft="8dp"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold|italic"
                 android:singleLine="true"
                 android:text="Owner Name" />
@@ -47,16 +55,16 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.15"
+                android:layout_weight="0.1"
                 android:background="@drawable/thumbs"/>
             <TextView
                 android:id="@+id/answer_score_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.25"
+                android:layout_weight="0.3"
                 android:layout_marginLeft="4dp"
                 android:gravity="center"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="italic"
                 android:singleLine="true"
                 android:text="Vote" />

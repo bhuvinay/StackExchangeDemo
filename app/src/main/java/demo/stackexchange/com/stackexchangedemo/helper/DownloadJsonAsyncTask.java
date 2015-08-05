@@ -104,7 +104,7 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Bea
             if (mContext instanceof AnswerScreen)
                 ((AnswerScreen) mContext).finish();
 
-            Toast.makeText(mContext, "No result to show, check network", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Result is not present for offline search. Only previously searched results will be shown. Try with active network", Toast.LENGTH_SHORT).show();
         }
     }
 

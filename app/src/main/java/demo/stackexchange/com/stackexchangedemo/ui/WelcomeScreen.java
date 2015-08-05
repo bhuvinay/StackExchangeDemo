@@ -29,8 +29,8 @@ public class WelcomeScreen extends Activity implements OnItemClickCallbackInterf
 
     private Context mContext;
     private String url;
-    DialogHelper myDialog;
-    ListView mList;
+    private DialogHelper myDialog;
+    private ListView mList;
     private String qSearchtext;
     private QuesListAdapter mQAdapter;
 

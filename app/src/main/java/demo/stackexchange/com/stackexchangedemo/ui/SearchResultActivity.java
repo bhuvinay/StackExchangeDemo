@@ -9,8 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
@@ -32,14 +32,14 @@ import demo.stackexchange.com.stackexchangedemo.helper.DataBaseHelper;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
 import demo.stackexchange.com.stackexchangedemo.utils.Utility;
 
-public class SearchResultActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, View.OnFocusChangeListener, AdapterView.OnItemClickListener, Filterable {
+public class SearchResultActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, View.OnFocusChangeListener, AdapterView.OnItemClickListener, Filterable {
 
     private ListView listView;
     private String[] dbValues;
     private DataBaseHelper dbHelp;
 
-    ArrayAdapter<String> searchResultsHistory;
-    ArrayList<String> filteredValues;
+    private ArrayAdapter<String> searchResultsHistory;
+    private ArrayList<String> filteredValues;
     private MyFilter myFilter;
 
     @Override
@@ -49,7 +49,7 @@ public class SearchResultActivity extends ActionBarActivity implements SearchVie
         dbHelp = DataBaseHelper.getInstance(this);
         listView = (ListView) findViewById(R.id.searchitems);
         listView.setOnItemClickListener(this);
-       // ActionBar bar color set to #669944
+        // set ActionBar bar color
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#DDF68A1F")));
     }
 
@@ -61,7 +61,7 @@ public class SearchResultActivity extends ActionBarActivity implements SearchVie
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.menu_search).getActionView();
-       // searchView.setBackgroundColor(Color.parseColor("#FF669944"));
+        // searchView.setBackgroundColor(Color.parseColor("#FF669944"));
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
@@ -102,7 +102,7 @@ public class SearchResultActivity extends ActionBarActivity implements SearchVie
     @Override
     public void onFocusChange(View view, boolean b) {
         if (b) {
-           //search by filtering the user input
+            //search by filtering the user input
             new Thread(new Runnable() {
                 @Override
                 public void run() {

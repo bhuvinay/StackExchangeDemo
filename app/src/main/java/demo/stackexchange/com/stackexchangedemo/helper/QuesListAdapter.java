@@ -25,7 +25,7 @@ public class QuesListAdapter extends BaseAdapter implements View.OnClickListener
 
     LayoutInflater inflater;
     private Activity mActivity;
-    ArrayList<Bean> mQData;
+    private ArrayList<Bean> mQData;
 
     public QuesListAdapter(WelcomeScreen activity, ArrayList<Bean> mData) {
         mActivity = activity;

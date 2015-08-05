@@ -18,7 +18,6 @@ import demo.stackexchange.com.stackexchangedemo.utils.Bean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
 
 
-
 public class DataBaseHelper extends SQLiteOpenHelper {
     // Database Name
     static final String DATABASE_NAME = "querydb.db";
@@ -100,6 +99,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public ArrayList<String> getAIdsList(int qId) {
+        ArrayList<String> ansList = new ArrayList<>();
+        Cursor cursor = db.query(DataBaseHelper.TABLE_ans,
+                new String[]{"A_ID"},
+                "Q_ID=?",
+                new String[]{String.valueOf(qId)},
+                null,
+                null,
+                null);
+
+        String aidies = "";
+        while (cursor.moveToNext()) {
+            aidies = cursor.getString(cursor.getColumnIndex("A_ID"));
+            ansList.add(aidies);
+        }
+        return ansList;
+
+    }
+
     public ArrayList<String> getDBSearchQueryList() {
 
         ArrayList<String> searchList = new ArrayList<>();
@@ -119,7 +137,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         return searchList;
     }
-
 
 
     public ArrayList<Bean> getDBQuestionBeanList(String qSearch) {
@@ -146,10 +163,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     String q_owner = item_cursor.getString(item_cursor.getColumnIndex("Q_OWNER"));
                     int q_score = item_cursor.getInt(item_cursor.getColumnIndex("SCORE"));
                     String q_title = item_cursor.getString(item_cursor.getColumnIndex("Q_TITLE"));
-                    int q_answered  =  item_cursor.getInt(item_cursor.getColumnIndex("Q_ANSWERED"));
+                    int q_answered = item_cursor.getInt(item_cursor.getColumnIndex("Q_ANSWERED"));
                     boolean is_Answered = (q_answered == 1) ? true : false;
                     Log.d(Constants.TAG, "q_id : " + q_id + " q_owner :" + q_owner + "q_score : " + q_score + "q_title : " + q_title);
-                    Bean qsBean = new Bean(q_id, q_title, q_score, q_owner,0, is_Answered);
+                    Bean qsBean = new Bean(q_id, q_title, q_score, q_owner, 0, is_Answered);
                     items_qb.add(qsBean);
                 }
                 item_cursor.close();
@@ -259,7 +276,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try {
             StringBuilder stringBuilder = new StringBuilder();
             for (Bean qB : items) {
-                insertQuesData(qB);
+                if (!getQIdsList(search_query).contains(String.valueOf(qB.getId())))
+                    insertQuesData(qB);
                 stringBuilder.append(qB.getId());
                 stringBuilder.append(":");
                 Log.d(Constants.TAG, "qB id " + qB.getId());
@@ -267,12 +285,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             String qList = stringBuilder.toString();
             Log.d(Constants.TAG, "qList " + qList);
             //check DB for already present search_query
-            if(!getDBSearchQueryList().contains(search_query)) {
+            if (!getDBSearchQueryList().contains(search_query)) {
                 //insert if new seach item
                 insertQueryQlist(search_query, qList);
-            }else {
+            } else {
                 //update if already present
-                updateQueryQlist(search_query,qList);
+                updateQueryQlist(search_query, qList);
             }
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -289,7 +307,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             for (Bean aB : items) {
-                insertAnsData(aB);
+                if (!getAIdsList(aB.getQuestionId()).contains(String.valueOf(aB.getId())))
+                    insertAnsData(aB);
             }
             db.setTransactionSuccessful();
         } catch (Exception e) {

@@ -1,7 +1,11 @@
 package demo.stackexchange.com.stackexchangedemo.ui;
 
+/**
+ * Created by vinay.pratap on 26-07-2015.
+ */
+
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,19 +20,19 @@ import demo.stackexchange.com.stackexchangedemo.helper.AnsListAdapter;
 import demo.stackexchange.com.stackexchangedemo.helper.DialogHelper;
 import demo.stackexchange.com.stackexchangedemo.helper.DownloadJsonAsyncTask;
 import demo.stackexchange.com.stackexchangedemo.intface.JsonParserCallback;
+import demo.stackexchange.com.stackexchangedemo.intface.OnItemClickCallbackInterface;
 import demo.stackexchange.com.stackexchangedemo.utils.Bean;
 import demo.stackexchange.com.stackexchangedemo.utils.Constants;
 
 
-public class AnswerScreen extends Activity implements JsonParserCallback {
+public class AnswerScreen extends Activity implements JsonParserCallback, OnItemClickCallbackInterface {
     private String mUrl;
-    DialogHelper mDialog;
-    ListView mAnsList;
-    TextView mQuesTitle;
-    public ArrayList<Bean> myData;
-    public AnsListAdapter mAnsAdapter;
-    int mQIdRefInt;
-    String qTitle;
+    private DialogHelper mDialog;
+    private ListView mAnsList;
+    private TextView mQuesTitle;
+    private AnsListAdapter mAnsAdapter;
+    private int mQIdRefInt;
+    private String qTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +44,10 @@ public class AnswerScreen extends Activity implements JsonParserCallback {
         mQuesTitle = (TextView) findViewById(R.id.Ques);
         mAnsList = (ListView) findViewById(R.id.AnswerList);
         mQuesTitle.setText(qTitle);
-       // http://api.stackexchange.com/2.2/questions/151777/answers?order=desc&sort=activity&site=stackoverflow&filter=!9YdnSM68i
+        // http://api.stackexchange.com/2.2/questions/151777/answers?order=desc&sort=activity&site=stackoverflow&filter=!9YdnSM68i
         mUrl = Constants.URL_SEARCH_Answer + mQIdRef + Constants.URL_Search_Answer_Query;
         Log.d(Constants.TAG, "Url : " + mUrl);
-        new DownloadJsonAsyncTask(AnswerScreen.this,Constants.ANSWER).execute(mUrl, mQIdRef);
-
+        new DownloadJsonAsyncTask(AnswerScreen.this, Constants.ANSWER).execute(mUrl, mQIdRef);
     }
 
 
@@ -72,9 +75,6 @@ public class AnswerScreen extends Activity implements JsonParserCallback {
 
     @Override
     public void setListData(ArrayList<Bean> mData) {
-        for (int i = 0; i < mData.size(); i++) {
-            myData = mData;
-        }
         if (mDialog != null) {
             mDialog.dismissDialog();
         }
@@ -83,4 +83,12 @@ public class AnswerScreen extends Activity implements JsonParserCallback {
         mAnsAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onClickListItem(int position, int id, String webData) {
+
+        Intent intent = new Intent(this, SingleAnsView.class);
+        intent.putExtra("webData_ref", webData);
+        startActivity(intent);
+
+    }
 }

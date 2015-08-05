@@ -8,4 +8,6 @@
     <string name="search_title">Search here...</string>
     <string name="title_activity_search_result">StackOverflow</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_single_ans_view"></string>
+    <string name="click_for_more">more...</string>
 </resources>
